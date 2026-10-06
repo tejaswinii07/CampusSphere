@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Examinations | CampusSphere</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+
+            padding: 16px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background: #2563eb;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1300px;
+            margin: 30px auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            color: #111827;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+            color: #6b7280;
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            background: #374151;
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #1f2937;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 24px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            color: #111827;
+        }
+
+        /* ================= INFORMATION ================= */
+
+        .info-box {
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            padding: 14px 16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            color: #1e3a8a;
+        }
+
+        .success {
+            background: #ecfdf5;
+
+            border-left: 5px solid #10b981;
+
+            color: #065f46;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        .error {
+            background: #fef2f2;
+
+            border-left: 5px solid #ef4444;
+
+            color: #991b1b;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        /* ================= FORMS ================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+        }
+
+        input,
+        select {
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.12);
+        }
+
+        .btn {
+            border: none;
+
+            padding: 11px 18px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1050px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            text-align: left;
+
+            vertical-align: middle;
+        }
+
+        th {
+            background: #111827;
+            color: white;
+
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f9fafb;
+        }
+
+        /* ================= BADGES ================= */
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-gray {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 35px;
+
+            color: #6b7280;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-title {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 27px;
+
+            font-weight: bold;
+
+            color: #111827;
+        }
+
+        /* ================= RESULT MARKS ================= */
+
+        .marks {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .form-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+            }
+
+            .navbar {
+                padding: 15px 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        CampusSphere
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            Welcome, {{ session.get('username', 'User') }}
+        </span>
+
+        <span class="role-badge">
+            {{ role }}
+        </span>
+
+        <a
+            href="/"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="/logout"
+            class="nav-link"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
+
+<div class="container">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Examinations & Results
+            </h1>
+
+            <p>
+                Manage examinations, registrations and
+                academic results.
+            </p>
+
+        </div>
+
+        <a
+            href="/"
+            class="back-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ROLE INFORMATION -->
+    <!-- ================================================= -->
+
+    {% if role == 'Student' %}
+
+        <div class="info-box">
+
+            <strong>Student View:</strong>
+
+            View your examinations, registered exams,
+            marks and grades.
+
+        </div>
+
+    {% elif role == 'Faculty' %}
+
+        <div class="info-box">
+
+            <strong>Faculty View:</strong>
+
+            View examinations and academic results for
+            your courses.
+
+        </div>
+
+    {% elif role == 'Admin' %}
+
+        <div class="info-box">
+
+            <strong>Admin View:</strong>
+
+            Manage examinations and academic results
+            across the campus.
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- FLASH MESSAGES -->
+    <!-- ================================================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                {% if category == 'success' %}
+
+                    <div class="success">
+                        {{ message }}
+                    </div>
+
+                {% else %}
+
+                    <div class="error">
+                        {{ message }}
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================= -->
+    <!-- SUMMARY -->
+    <!-- ================================================= -->
+
+    <div class="summary-grid">
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Examinations
+            </div>
+
+            <div class="summary-value">
+
+                {% if exams %}
+                    {{ exams|length }}
+                {% else %}
+                    0
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Result Records
+            </div>
+
+            <div class="summary-value">
+
+                {% if results %}
+                    {{ results|length }}
+                {% else %}
+                    0
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Exam Registrations
+            </div>
+
+            <div class="summary-value">
+
+                {% if registrations %}
+                    {{ registrations|length }}
+                {% else %}
+                    0
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ADD EXAMINATION -->
+    <!-- ================================================= -->
+
+    {% if role == 'Admin' or role == 'Faculty' %}
+
+    <div class="card">
+
+        <h2>
+            Add Examination
+        </h2>
+
+
+        <form
+            method="POST"
+            action="/examinations/add"
+        >
+
+            <div class="form-grid">
+
+
+                <!-- COURSE -->
+
+                <div class="form-group">
+
+                    <label for="course_id">
+                        Course
+                    </label>
+
+                    <select
+                        id="course_id"
+                        name="course_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Course
+                        </option>
+
+                        {% for course in courses %}
+
+                            <option
+                                value="{{ course.course_id }}"
+                            >
+
+                                {{ course.course_code }}
+                                -
+                                {{ course.course_name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- EXAM NAME -->
+
+                <div class="form-group">
+
+                    <label for="exam_name">
+                        Examination Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="exam_name"
+                        name="exam_name"
+                        placeholder="Example: Internal Assessment 1"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EXAM DATE -->
+
+                <div class="form-group">
+
+                    <label for="exam_date">
+                        Examination Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="exam_date"
+                        name="exam_date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- START TIME -->
+
+                <div class="form-group">
+
+                    <label for="start_time">
+                        Start Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="start_time"
+                        name="start_time"
+                    >
+
+                </div>
+
+
+                <!-- END TIME -->
+
+                <div class="form-group">
+
+                    <label for="end_time">
+                        End Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="end_time"
+                        name="end_time"
+                    >
+
+                </div>
+
+
+                <!-- ROOM -->
+
+                <div class="form-group">
+
+                    <label for="room_number">
+                        Room Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="room_number"
+                        name="room_number"
+                        placeholder="Example: B201"
+                    >
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <div class="form-group full">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        + Add Examination
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- EXAMINATION TABLE -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Examination Schedule
+        </h2>
+
+
+        {% if exams %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Exam ID
+                        </th>
+
+                        {% if role != 'Student' %}
+
+                        <th>
+                            Course
+                        </th>
+
+                        {% else %}
+
+                        <th>
+                            Course
+                        </th>
+
+                        {% endif %}
+
+                        <th>
+                            Examination
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Room
+                        </th>
+
+                        <th>
+                            Registration
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for exam in exams %}
+
+                    <tr>
+
+                        <td>
+                            {{ exam.exam_id }}
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+
+                                {% if exam.course_code is defined %}
+
+                                    {{ exam.course_code }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </strong>
+
+                            {% if exam.course_name is defined %}
+
+                                <br>
+
+                                <small>
+                                    {{ exam.course_name }}
+                                </small>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+                            {{ exam.exam_name }}
+                        </td>
+
+
+                        <td>
+
+                            {% if exam.exam_date %}
+
+                                {{ exam.exam_date }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if exam.start_time %}
+
+                                {{ exam.start_time }}
+
+                                {% if exam.end_time %}
+
+                                    -
+                                    {{ exam.end_time }}
+
+                                {% endif %}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if exam.room_number %}
+
+                                <span class="badge badge-blue">
+                                    {{ exam.room_number }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    Not Assigned
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if role == 'Student' %}
+
+                                {% set registered = false %}
+
+                                {% for registration in registrations %}
+
+                                    {% if registration.exam_id == exam.exam_id %}
+
+                                        {% set registered = true %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+
+                                {% if registered %}
+
+                                    <span class="badge badge-green">
+                                        Registered
+                                    </span>
+
+                                {% else %}
+
+                                    <form
+                                        method="POST"
+                                        action="/examinations/register"
+                                        style="display:inline;"
+                                    >
+
+                                        <input
+                                            type="hidden"
+                                            name="exam_id"
+                                            value="{{ exam.exam_id }}"
+                                        >
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                        >
+                                            Register
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    View Only
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No Examinations Found
+                </h3>
+
+                <br>
+
+                <p>
+                    No examination schedule is currently
+                    available.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ADD RESULT -->
+    <!-- ================================================= -->
+
+    {% if role == 'Admin' or role == 'Faculty' %}
+
+    <div class="card">
+
+        <h2>
+            Add Examination Result
+        </h2>
+
+
+        <form
+            method="POST"
+            action="/examinations/result/add"
+        >
+
+            <div class="form-grid">
+
+
+                <!-- STUDENT -->
+
+                <div class="form-group">
+
+                    <label for="result_student_id">
+                        Student
+                    </label>
+
+                    <select
+                        id="result_student_id"
+                        name="student_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Student
+                        </option>
+
+                        {% for student in students %}
+
+                            <option
+                                value="{{ student.student_id }}"
+                            >
+
+                                {{ student.register_number }}
+                                -
+                                {{ student.student_name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- COURSE -->
+
+                <div class="form-group">
+
+                    <label for="result_course_id">
+                        Course
+                    </label>
+
+                    <select
+                        id="result_course_id"
+                        name="course_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Course
+                        </option>
+
+                        {% for course in courses %}
+
+                            <option
+                                value="{{ course.course_id }}"
+                            >
+
+                                {{ course.course_code }}
+                                -
+                                {{ course.course_name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- EXAM -->
+
+                <div class="form-group">
+
+                    <label for="result_exam_id">
+                        Examination
+                    </label>
+
+                    <select
+                        id="result_exam_id"
+                        name="exam_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Examination
+                        </option>
+
+                        {% for exam in exams %}
+
+                            <option
+                                value="{{ exam.exam_id }}"
+                            >
+
+                                {{ exam.exam_name }}
+                                -
+                                {{ exam.exam_date }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- MARKS -->
+
+                <div class="form-group">
+
+                    <label for="marks">
+                        Marks
+                    </label>
+
+                    <input
+                        type="number"
+                        id="marks"
+                        name="marks"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                        placeholder="Example: 85"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <div class="form-group">
+
+                    <label>
+                        Grade
+                    </label>
+
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+                        + Save Result
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+
+        <br>
+
+
+        <div class="info-box">
+
+            <strong>DBMS Feature:</strong>
+
+            The grade is automatically calculated by the
+            <strong>before_result_insert</strong> trigger
+            according to the marks entered.
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- RESULTS TABLE -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Examination Results
+        </h2>
+
+
+        {% if results %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        {% if role != 'Student' %}
+
+                            <th>
+                                Register No.
+                            </th>
+
+                            <th>
+                                Student
+                            </th>
+
+                        {% endif %}
+
+                        <th>
+                            Course
+                        </th>
+
+                        <th>
+                            Examination
+                        </th>
+
+                        <th>
+                            Marks
+                        </th>
+
+                        <th>
+                            Grade
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for result in results %}
+
+                    <tr>
+
+
+                        {% if role != 'Student' %}
+
+                            <td>
+
+                                {% if result.register_number is defined %}
+
+                                    {{ result.register_number }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                {% if result.student_name is defined %}
+
+                                    {{ result.student_name }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </td>
+
+                        {% endif %}
+
+
+                        <td>
+
+                            <strong>
+
+                                {% if result.course_code is defined %}
+
+                                    {{ result.course_code }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </strong>
+
+                            {% if result.course_name is defined %}
+
+                                <br>
+
+                                <small>
+                                    {{ result.course_name }}
+                                </small>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if result.exam_name is defined %}
+
+                                {{ result.exam_name }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="marks">
+
+                                {{ result.marks }}
+
+                            </span>
+
+                            / 100
+
+                        </td>
+
+
+                        <td>
+
+                            {% if result.grade == 'O' %}
+
+                                <span class="badge badge-green">
+                                    O
+                                </span>
+
+                            {% elif result.grade == 'A+' %}
+
+                                <span class="badge badge-green">
+                                    A+
+                                </span>
+
+                            {% elif result.grade == 'A' %}
+
+                                <span class="badge badge-blue">
+                                    A
+                                </span>
+
+                            {% elif result.grade == 'B+' %}
+
+                                <span class="badge badge-blue">
+                                    B+
+                                </span>
+
+                            {% elif result.grade == 'B' %}
+
+                                <span class="badge badge-yellow">
+                                    B
+                                </span>
+
+                            {% elif result.grade == 'C' %}
+
+                                <span class="badge badge-yellow">
+                                    C
+                                </span>
+
+                            {% elif result.grade == 'F' %}
+
+                                <span class="badge badge-red">
+                                    F
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    {{ result.grade or '-' }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No Results Found
+                </h3>
+
+                <br>
+
+                <p>
+                    No examination results are currently
+                    available.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- DBMS INFORMATION -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            DBMS Features Used
+        </h2>
+
+        <p>
+            The examination module demonstrates several
+            database concepts used in CampusSphere.
+        </p>
+
+        <br>
+
+        <ul style="padding-left: 22px; line-height: 1.9;">
+
+            <li>
+                <strong>Foreign Keys</strong> connect
+                examinations with courses.
+            </li>
+
+            <li>
+                <strong>Foreign Keys</strong> connect
+                results with students, courses and exams.
+            </li>
+
+            <li>
+                <strong>Unique Constraints</strong> prevent
+                duplicate exam registrations.
+            </li>
+
+            <li>
+                <strong>Trigger</strong> automatically
+                calculates result grades.
+            </li>
+
+            <li>
+                <strong>Stored Procedures</strong> provide
+                reusable academic queries.
+            </li>
+
+            <li>
+                <strong>Views</strong> provide combined
+                academic information.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script>
+
+    /*
+     * Marks validation.
+     */
+
+    const marksInput =
+        document.getElementById("marks");
+
+
+    if (marksInput) {
+
+        marksInput.addEventListener(
+            "input",
+            function () {
+
+                const value =
+                    parseFloat(this.value);
+
+
+                if (
+                    value < 0 ||
+                    value > 100
+                ) {
+
+                    this.setCustomValidity(
+                        "Marks must be between 0 and 100."
+                    );
+
+                } else {
+
+                    this.setCustomValidity("");
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+     * Make sure exam end time is after
+     * start time.
+     */
+
+    const startTime =
+        document.getElementById("start_time");
+
+    const endTime =
+        document.getElementById("end_time");
+
+
+    function validateExamTime() {
+
+        if (
+            startTime &&
+            endTime &&
+            startTime.value &&
+            endTime.value
+        ) {
+
+            if (
+                endTime.value <=
+                startTime.value
+            ) {
+
+                endTime.setCustomValidity(
+                    "End time must be after start time."
+                );
+
+            } else {
+
+                endTime.setCustomValidity("");
+
+            }
+
+        }
+
+    }
+
+
+    if (startTime) {
+
+        startTime.addEventListener(
+            "change",
+            validateExamTime
+        );
+
+    }
+
+
+    if (endTime) {
+
+        endTime.addEventListener(
+            "change",
+            validateExamTime
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

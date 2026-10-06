@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>User Management | CampusSphere</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+
+            padding: 16px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background: #dc2626;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+        }
+
+        .nav-link {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1350px;
+
+            margin: 30px auto;
+        }
+
+        .page-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+
+            color: #111827;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+
+            color: #6b7280;
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            background: #374151;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #1f2937;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 24px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+
+            color: #111827;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            padding: 14px 16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            color: #1e3a8a;
+
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+
+            border-left: 5px solid #f59e0b;
+
+            padding: 14px 16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            color: #92400e;
+
+            line-height: 1.6;
+        }
+
+        .success {
+            background: #ecfdf5;
+
+            border-left: 5px solid #10b981;
+
+            color: #065f46;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        .error {
+            background: #fef2f2;
+
+            border-left: 5px solid #ef4444;
+
+            color: #991b1b;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-title {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 27px;
+
+            font-weight: bold;
+
+            color: #111827;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+        }
+
+        input,
+        select {
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.12);
+        }
+
+        .btn {
+            border: none;
+
+            padding: 10px 16px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 900px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            text-align: left;
+
+            vertical-align: middle;
+        }
+
+        th {
+            background: #111827;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f9fafb;
+        }
+
+        /* ================= BADGES ================= */
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .badge-admin {
+            background: #fee2e2;
+
+            color: #991b1b;
+        }
+
+        .badge-faculty {
+            background: #dbeafe;
+
+            color: #1e40af;
+        }
+
+        .badge-student {
+            background: #d1fae5;
+
+            color: #065f46;
+        }
+
+        .badge-gray {
+            background: #e5e7eb;
+
+            color: #374151;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .action-group {
+            display: flex;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 35px;
+
+            color: #6b7280;
+        }
+
+        /* ================= ROLE HELP ================= */
+
+        .role-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+        }
+
+        .role-card {
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            background: #ffffff;
+        }
+
+        .role-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .role-card p {
+            color: #6b7280;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .role-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+
+                margin: 20px auto;
+            }
+
+            .navbar {
+                padding: 15px 18px;
+            }
+
+            .summary-grid,
+            .form-grid,
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        CampusSphere
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            Welcome, {{ session.get('username', 'Admin') }}
+        </span>
+
+        <span class="role-badge">
+            Admin
+        </span>
+
+        <a
+            href="/"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="/logout"
+            class="nav-link"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
+
+<div class="container">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                User Management
+            </h1>
+
+            <p>
+                Create and manage CampusSphere login accounts.
+            </p>
+
+        </div>
+
+        <a
+            href="/"
+            class="back-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- FLASH MESSAGES -->
+    <!-- ================================================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                {% if category == 'success' %}
+
+                    <div class="success">
+                        {{ message }}
+                    </div>
+
+                {% else %}
+
+                    <div class="error">
+                        {{ message }}
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================= -->
+    <!-- INFO -->
+    <!-- ================================================= -->
+
+    <div class="info-box">
+
+        <strong>Administrator Access:</strong>
+
+        This page manages the authentication records
+        stored in the <strong>users</strong> table.
+
+        Student and Faculty accounts can optionally be
+        linked to their corresponding records using
+        <strong>student_id</strong> and
+        <strong>faculty_id</strong>.
+
+    </div>
+
+
+    <div class="warning-box">
+
+        <strong>Development Project Note:</strong>
+
+        Passwords are currently stored as plain text
+        because this is a DBMS mini-project demonstration.
+        For a production system, passwords should be securely
+        hashed using a password-hashing algorithm.
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- SUMMARY -->
+    <!-- ================================================= -->
+
+    <div class="summary-grid">
+
+
+        <!-- TOTAL USERS -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Total Users
+            </div>
+
+            <div class="summary-value">
+
+                {{ users|length if users else 0 }}
+
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Admin Accounts
+            </div>
+
+            <div class="summary-value">
+
+                {% set admin_count =
+                    namespace(value=0) %}
+
+                {% for user in users %}
+
+                    {% if user.role == 'Admin' %}
+
+                        {% set admin_count.value =
+                            admin_count.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ admin_count.value }}
+
+            </div>
+
+        </div>
+
+
+        <!-- FACULTY -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Faculty Accounts
+            </div>
+
+            <div class="summary-value">
+
+                {% set faculty_count =
+                    namespace(value=0) %}
+
+                {% for user in users %}
+
+                    {% if user.role == 'Faculty' %}
+
+                        {% set faculty_count.value =
+                            faculty_count.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ faculty_count.value }}
+
+            </div>
+
+        </div>
+
+
+        <!-- STUDENTS -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Student Accounts
+            </div>
+
+            <div class="summary-value">
+
+                {% set student_count =
+                    namespace(value=0) %}
+
+                {% for user in users %}
+
+                    {% if user.role == 'Student' %}
+
+                        {% set student_count.value =
+                            student_count.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ student_count.value }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- CREATE USER -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Create New User
+        </h2>
+
+        <form
+            method="POST"
+            action="/admin/users/add"
+        >
+
+            <div class="form-grid">
+
+
+                <!-- USERNAME -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        maxlength="50"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        maxlength="255"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div class="form-group">
+
+                    <label for="role">
+                        Role
+                    </label>
+
+                    <select
+                        id="role"
+                        name="role"
+                        required
+                    >
+
+                        <option value="">
+                            Select Role
+                        </option>
+
+                        <option value="Admin">
+                            Admin
+                        </option>
+
+                        <option value="Faculty">
+                            Faculty
+                        </option>
+
+                        <option value="Student">
+                            Student
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- STUDENT -->
+
+                <div
+                    class="form-group"
+                    id="student-group"
+                >
+
+                    <label for="student_id">
+                        Link Student
+                    </label>
+
+                    <select
+                        id="student_id"
+                        name="student_id"
+                    >
+
+                        <option value="">
+                            No Student Link
+                        </option>
+
+                        {% for student in students %}
+
+                            <option
+                                value="{{ student.student_id }}"
+                            >
+
+                                {{ student.register_number }}
+                                -
+                                {{ student.student_name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- FACULTY -->
+
+                <div
+                    class="form-group"
+                    id="faculty-group"
+                >
+
+                    <label for="faculty_id">
+                        Link Faculty
+                    </label>
+
+                    <select
+                        id="faculty_id"
+                        name="faculty_id"
+                    >
+
+                        <option value="">
+                            No Faculty Link
+                        </option>
+
+                        {% for member in faculty %}
+
+                            <option
+                                value="{{ member.faculty_id }}"
+                            >
+
+                                {{ member.faculty_name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <div class="form-group">
+
+                    <label>
+                        &nbsp;
+                    </label>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Create User
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- USER LIST -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Registered Users
+        </h2>
+
+
+        {% if users %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            User ID
+                        </th>
+
+                        <th>
+                            Username
+                        </th>
+
+                        <th>
+                            Role
+                        </th>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Faculty
+                        </th>
+
+                        <th>
+                            Account Status
+                        </th>
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for user in users %}
+
+                    <tr>
+
+
+                        <!-- USER ID -->
+
+                        <td>
+                            {{ user.user_id }}
+                        </td>
+
+
+                        <!-- USERNAME -->
+
+                        <td>
+
+                            <strong>
+                                {{ user.username }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- ROLE -->
+
+                        <td>
+
+                            {% if user.role == 'Admin' %}
+
+                                <span class="badge badge-admin">
+                                    Admin
+                                </span>
+
+                            {% elif user.role == 'Faculty' %}
+
+                                <span class="badge badge-faculty">
+                                    Faculty
+                                </span>
+
+                            {% elif user.role == 'Student' %}
+
+                                <span class="badge badge-student">
+                                    Student
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    {{ user.role }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- STUDENT -->
+
+                        <td>
+
+                            {% if user.student_name is defined
+                                  and user.student_name %}
+
+                                {{ user.student_name }}
+
+                                {% if user.register_number is defined
+                                      and user.register_number %}
+
+                                    <br>
+
+                                    <small>
+                                        {{ user.register_number }}
+                                    </small>
+
+                                {% endif %}
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    Not Linked
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- FACULTY -->
+
+                        <td>
+
+                            {% if user.faculty_name is defined
+                                  and user.faculty_name %}
+
+                                {{ user.faculty_name }}
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    Not Linked
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span class="badge badge-green">
+                                Active
+                            </span>
+
+                        </td>
+
+
+                        <!-- ACTION -->
+
+                        <td>
+
+                            {% if user.username != session.get('username') %}
+
+                                <form
+                                    method="POST"
+                                    action="/admin/users/delete/{{ user.user_id }}"
+                                    onsubmit="return confirm(
+                                        'Delete this user account?'
+                                    );"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    Current User
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No Users Found
+                </h3>
+
+                <br>
+
+                <p>
+                    No user accounts are currently
+                    registered.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ROLE INFORMATION -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            CampusSphere Role Structure
+        </h2>
+
+
+        <div class="role-grid">
+
+
+            <!-- ADMIN -->
+
+            <div class="role-card">
+
+                <h3>
+                    <span class="badge badge-admin">
+                        Admin
+                    </span>
+                </h3>
+
+                <p>
+
+                    Full system access.
+
+                    Admin can manage students,
+                    users, complaints, rooms,
+                    placements and DBMS features.
+
+                </p>
+
+            </div>
+
+
+            <!-- FACULTY -->
+
+            <div class="role-card">
+
+                <h3>
+                    <span class="badge badge-faculty">
+                        Faculty
+                    </span>
+                </h3>
+
+                <p>
+
+                    Academic and operational access.
+
+                    Faculty can manage attendance,
+                    examinations, room bookings,
+                    placements and complaints.
+
+                </p>
+
+            </div>
+
+
+            <!-- STUDENT -->
+
+            <div class="role-card">
+
+                <h3>
+                    <span class="badge badge-student">
+                        Student
+                    </span>
+                </h3>
+
+                <p>
+
+                    Student-specific access.
+
+                    Students can view their academic
+                    information, attendance, examinations,
+                    placements and complaints.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- DBMS EXPLANATION -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            User Management — DBMS Concepts
+        </h2>
+
+        <ul style="padding-left: 22px; line-height: 1.9;">
+
+            <li>
+                <strong>Primary Key:</strong>
+                user_id uniquely identifies every
+                user account.
+            </li>
+
+            <li>
+                <strong>Unique Constraint:</strong>
+                username must be unique.
+            </li>
+
+            <li>
+                <strong>Foreign Keys:</strong>
+                student_id and faculty_id connect
+                authentication records with academic
+                records.
+            </li>
+
+            <li>
+                <strong>Role-Based Access Control:</strong>
+                the role column determines which
+                application modules a user can access.
+            </li>
+
+            <li>
+                <strong>Referential Integrity:</strong>
+                linked student and faculty records
+                must exist in their respective tables.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script>
+
+    const roleSelect =
+        document.getElementById("role");
+
+    const studentGroup =
+        document.getElementById("student-group");
+
+    const facultyGroup =
+        document.getElementById("faculty-group");
+
+    const studentSelect =
+        document.getElementById("student_id");
+
+    const facultySelect =
+        document.getElementById("faculty_id");
+
+
+    function updateRoleFields() {
+
+        const role =
+            roleSelect.value;
+
+
+        /*
+         * Student accounts should be linked
+         * to a student record.
+         */
+
+        if (role === "Student") {
+
+            studentGroup.style.display = "flex";
+
+            facultyGroup.style.display = "none";
+
+            facultySelect.value = "";
+
+        }
+
+
+        /*
+         * Faculty accounts should be linked
+         * to a faculty record.
+         */
+
+        else if (role === "Faculty") {
+
+            studentGroup.style.display = "none";
+
+            facultyGroup.style.display = "flex";
+
+            studentSelect.value = "";
+
+        }
+
+
+        /*
+         * Admin accounts do not need
+         * an academic record link.
+         */
+
+        else {
+
+            studentGroup.style.display = "none";
+
+            facultyGroup.style.display = "none";
+
+            studentSelect.value = "";
+
+            facultySelect.value = "";
+
+        }
+
+    }
+
+
+    roleSelect.addEventListener(
+        "change",
+        updateRoleFields
+    );
+
+
+    updateRoleFields();
+
+
+    /*
+     * Basic client-side validation.
+     */
+
+    const userForm =
+        document.querySelector(
+            'form[action="/admin/users/add"]'
+        );
+
+
+    userForm.addEventListener(
+        "submit",
+        function (event) {
+
+            const username =
+                document
+                    .getElementById("username")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
+
+            const role =
+                roleSelect.value;
+
+
+            if (username.length < 3) {
+
+                alert(
+                    "Username must contain at least 3 characters."
+                );
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+
+            if (password.length < 5) {
+
+                alert(
+                    "Password must contain at least 5 characters."
+                );
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+
+            if (!role) {
+
+                alert(
+                    "Please select a user role."
+                );
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+
+            if (
+                role === "Student"
+                &&
+                !studentSelect.value
+            ) {
+
+                alert(
+                    "Please link this Student account to a student record."
+                );
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+
+            if (
+                role === "Faculty"
+                &&
+                !facultySelect.value
+            ) {
+
+                alert(
+                    "Please link this Faculty account to a faculty record."
+                );
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

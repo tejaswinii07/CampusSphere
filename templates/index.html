@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CampusSphere Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        nav {
+            background: #0f172a;
+            color: white;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            color: #60a5fa;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .role {
+            background: #2563eb;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            background: #dc2626;
+            padding: 8px 14px;
+            border-radius: 7px;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 35px;
+        }
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #1d4ed8,
+                #4338ca
+            );
+            color: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+        }
+
+        .stat h3 {
+            font-size: 30px;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+
+        .stat p {
+            color: #64748b;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .module {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+        }
+
+        .module:hover {
+            transform: translateY(-3px);
+            border-color: #2563eb;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .module h3 {
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .module p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .profile {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 18px;
+        }
+
+        .profile-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .profile-item strong {
+            display: block;
+            color: #475569;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+        }
+
+        .overview {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+        }
+
+        .overview p {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        @media(max-width: 700px) {
+
+            nav {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .nav-right {
+                gap: 8px;
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>CampusSphere</h2>
+
+    <div class="nav-right">
+
+        <span>
+            {{ username }}
+        </span>
+
+        <span class="role">
+            {{ role }}
+        </span>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            <div style="
+                background:#dcfce7;
+                padding:12px;
+                border-radius:8px;
+                margin-bottom:15px;
+                color:#166534;
+            ">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+
+<!-- ==================================================
+     ADMIN
+================================================== -->
+
+{% if role == "Admin" %}
+
+<div class="hero">
+
+    <h1>Welcome, Administrator</h1>
+
+    <p>
+        Complete control over CampusSphere operations
+        and database management.
+    </p>
+
+</div>
+
+<div class="stats">
+
+    <div class="stat">
+        <h3>{{ total_students }}</h3>
+        <p>Total Students</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ total_faculty }}</h3>
+        <p>Total Faculty</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ total_courses }}</h3>
+        <p>Total Courses</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ total_drives }}</h3>
+        <p>Placement Drives</p>
+    </div>
+
+</div>
+
+<h2 class="section-title">
+    Administration Modules
+</h2>
+
+<div class="modules">
+
+    <a class="module"
+       href="{{ url_for('students') }}">
+        <h3>Student Management</h3>
+        <p>Manage student records.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('attendance') }}">
+        <h3>Attendance</h3>
+        <p>Monitor attendance records.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('examinations') }}">
+        <h3>Examinations</h3>
+        <p>Manage exams and results.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('room_bookings') }}">
+        <h3>Room Management</h3>
+        <p>Manage classrooms and bookings.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('placements') }}">
+        <h3>Placements</h3>
+        <p>Manage placement drives.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('complaints') }}">
+        <h3>Complaints</h3>
+        <p>Monitor student complaints.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('dbms_features') }}">
+        <h3>Advanced DBMS</h3>
+        <p>Views, procedures, functions and warnings.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('admin') }}">
+        <h3>User Management</h3>
+        <p>Create application login accounts.</p>
+    </a>
+
+</div>
+
+<div class="overview">
+
+    <h2>System Overview</h2>
+
+    <p>
+        Pending complaints:
+        <strong>{{ pending_complaints }}</strong>
+    </p>
+
+    <p>
+        Total room bookings:
+        <strong>{{ total_bookings }}</strong>
+    </p>
+
+    <p>
+        Access level:
+        <strong>Full System Access</strong>
+    </p>
+
+</div>
+
+
+<!-- ==================================================
+     FACULTY
+================================================== -->
+
+{% elif role == "Faculty" %}
+
+<div class="hero">
+
+    <h1>
+        Welcome,
+        {{ faculty.faculty_name if faculty else username }}
+    </h1>
+
+    <p>
+        Faculty workspace for academic and campus operations.
+    </p>
+
+</div>
+
+{% if faculty %}
+
+<div class="profile">
+
+    <h2>Faculty Profile</h2>
+
+    <div class="profile-grid">
+
+        <div class="profile-item">
+            <strong>Name</strong>
+            {{ faculty.faculty_name }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Designation</strong>
+            {{ faculty.designation }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Department</strong>
+            {{ faculty.department_name }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Email</strong>
+            {{ faculty.email }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+<div class="stats">
+
+    <div class="stat">
+        <h3>{{ my_courses }}</h3>
+        <p>My Courses</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ my_bookings }}</h3>
+        <p>My Room Bookings</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ pending_complaints }}</h3>
+        <p>Pending Complaints</p>
+    </div>
+
+    <div class="stat">
+        <h3>Faculty</h3>
+        <p>Role</p>
+    </div>
+
+</div>
+
+<h2 class="section-title">
+    Faculty Modules
+</h2>
+
+<div class="modules">
+
+    <a class="module"
+       href="{{ url_for('students') }}">
+        <h3>Students</h3>
+        <p>View student information.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('attendance') }}">
+        <h3>Attendance</h3>
+        <p>Manage attendance.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('examinations') }}">
+        <h3>Examinations</h3>
+        <p>View examinations and results.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('room_bookings') }}">
+        <h3>Room Bookings</h3>
+        <p>Manage faculty room bookings.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('placements') }}">
+        <h3>Placements</h3>
+        <p>View placement activity.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('complaints') }}">
+        <h3>Complaints</h3>
+        <p>Monitor complaints.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('dbms_features') }}">
+        <h3>DBMS Features</h3>
+        <p>Explore advanced database features.</p>
+    </a>
+
+</div>
+
+
+<!-- ==================================================
+     STUDENT
+================================================== -->
+
+{% elif role == "Student" %}
+
+<div class="hero">
+
+    <h1>
+        Welcome,
+        {{ student.student_name if student else username }}
+    </h1>
+
+    <p>
+        Your personalized student dashboard.
+    </p>
+
+</div>
+
+{% if student %}
+
+<div class="profile">
+
+    <h2>My Profile</h2>
+
+    <div class="profile-grid">
+
+        <div class="profile-item">
+            <strong>Register Number</strong>
+            {{ student.register_number }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Name</strong>
+            {{ student.student_name }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Department</strong>
+            {{ student.department_name }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Year</strong>
+            {{ student.year_of_study }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Section</strong>
+            {{ student.section }}
+        </div>
+
+        <div class="profile-item">
+            <strong>Email</strong>
+            {{ student.email }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+<div class="stats">
+
+    <div class="stat">
+        <h3>
+            {{ "%.2f"|format(average_attendance|float) }}%
+        </h3>
+        <p>Average Attendance</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ enrolled_courses }}</h3>
+        <p>Enrolled Courses</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ placement_applications }}</h3>
+        <p>Placement Applications</p>
+    </div>
+
+    <div class="stat">
+        <h3>{{ complaints }}</h3>
+        <p>My Complaints</p>
+    </div>
+
+</div>
+
+<h2 class="section-title">
+    Student Modules
+</h2>
+
+<div class="modules">
+
+    <a class="module"
+       href="{{ url_for('attendance') }}">
+        <h3>My Attendance</h3>
+        <p>View your attendance records.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('examinations') }}">
+        <h3>My Examinations</h3>
+        <p>View exams and results.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('placements') }}">
+        <h3>Placements</h3>
+        <p>View drives and apply.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('complaints') }}">
+        <h3>My Complaints</h3>
+        <p>Submit and track complaints.</p>
+    </a>
+
+    <a class="module"
+       href="{{ url_for('dbms_features') }}">
+        <h3>DBMS Information</h3>
+        <p>View database-driven information.</p>
+    </a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>

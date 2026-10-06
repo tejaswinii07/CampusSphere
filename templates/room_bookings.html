@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Room Bookings | CampusSphere</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+
+            padding: 16px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background: #2563eb;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1300px;
+            margin: 30px auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            color: #111827;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+            color: #6b7280;
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            background: #374151;
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #1f2937;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 24px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            color: #111827;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            padding: 14px 16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            color: #1e3a8a;
+        }
+
+        .success {
+            background: #ecfdf5;
+
+            border-left: 5px solid #10b981;
+
+            color: #065f46;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        .error {
+            background: #fef2f2;
+
+            border-left: 5px solid #ef4444;
+
+            color: #991b1b;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.12);
+        }
+
+        .btn {
+            border: none;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-warning {
+            background: #d97706;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #b45309;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1100px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            text-align: left;
+
+            vertical-align: middle;
+        }
+
+        th {
+            background: #111827;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f9fafb;
+        }
+
+        /* ================= BADGES ================= */
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .badge-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-gray {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 35px;
+
+            color: #6b7280;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .action-group {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-title {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 27px;
+
+            font-weight: bold;
+
+            color: #111827;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+            }
+
+            .navbar {
+                padding: 15px 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        CampusSphere
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            Welcome, {{ session.get('username', 'User') }}
+        </span>
+
+        <span class="role-badge">
+            {{ role }}
+        </span>
+
+        <a
+            href="/"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="/logout"
+            class="nav-link"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
+
+<div class="container">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Room Booking Management
+            </h1>
+
+            <p>
+                Manage classrooms, laboratories and
+                seminar hall bookings.
+            </p>
+
+        </div>
+
+        <a
+            href="/"
+            class="back-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ROLE INFORMATION -->
+    <!-- ================================================= -->
+
+    {% if role == 'Admin' %}
+
+        <div class="info-box">
+
+            <strong>Admin View:</strong>
+
+            You can view, create, update and delete
+            room bookings across the campus.
+
+        </div>
+
+    {% elif role == 'Faculty' %}
+
+        <div class="info-box">
+
+            <strong>Faculty View:</strong>
+
+            You can create and manage your room bookings.
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- FLASH MESSAGES -->
+    <!-- ================================================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                {% if category == 'success' %}
+
+                    <div class="success">
+                        {{ message }}
+                    </div>
+
+                {% else %}
+
+                    <div class="error">
+                        {{ message }}
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================= -->
+    <!-- SUMMARY -->
+    <!-- ================================================= -->
+
+    <div class="summary-grid">
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Total Bookings
+            </div>
+
+            <div class="summary-value">
+
+                {% if bookings %}
+                    {{ bookings|length }}
+                {% else %}
+                    0
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Confirmed
+            </div>
+
+            <div class="summary-value">
+
+                {% set confirmed =
+                    namespace(value=0) %}
+
+                {% for booking in bookings %}
+
+                    {% if booking.booking_status == 'Confirmed' %}
+
+                        {% set confirmed.value =
+                            confirmed.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ confirmed.value }}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Pending
+            </div>
+
+            <div class="summary-value">
+
+                {% set pending =
+                    namespace(value=0) %}
+
+                {% for booking in bookings %}
+
+                    {% if booking.booking_status == 'Pending' %}
+
+                        {% set pending.value =
+                            pending.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ pending.value }}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Available Rooms
+            </div>
+
+            <div class="summary-value">
+
+                {% if classrooms %}
+                    {{ classrooms|length }}
+                {% else %}
+                    0
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ADD BOOKING -->
+    <!-- ================================================= -->
+
+    {% if role == 'Admin' or role == 'Faculty' %}
+
+    <div class="card">
+
+        <h2>
+            Create Room Booking
+        </h2>
+
+
+        <form
+            method="POST"
+            action="/room-bookings/add"
+        >
+
+            <div class="form-grid">
+
+
+                <!-- CLASSROOM -->
+
+                <div class="form-group">
+
+                    <label for="classroom_id">
+                        Classroom
+                    </label>
+
+                    <select
+                        id="classroom_id"
+                        name="classroom_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Classroom
+                        </option>
+
+                        {% for classroom in classrooms %}
+
+                            <option
+                                value="{{ classroom.classroom_id }}"
+                            >
+
+                                {{ classroom.room_number }}
+                                -
+                                {{ classroom.building }}
+                                -
+                                {{ classroom.room_type }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- FACULTY -->
+
+                {% if role == 'Admin' %}
+
+                <div class="form-group">
+
+                    <label for="faculty_id">
+                        Faculty
+                    </label>
+
+                    <select
+                        id="faculty_id"
+                        name="faculty_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Faculty
+                        </option>
+
+                        {% for faculty_member in faculty %}
+
+                            <option
+                                value="{{ faculty_member.faculty_id }}"
+                            >
+
+                                {{ faculty_member.faculty_name }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                {% else %}
+
+                <input
+                    type="hidden"
+                    name="faculty_id"
+                    value="{{ session.get('faculty_id', '') }}"
+                >
+
+                {% endif %}
+
+
+                <!-- DATE -->
+
+                <div class="form-group">
+
+                    <label for="booking_date">
+                        Booking Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="booking_date"
+                        name="booking_date"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- START -->
+
+                <div class="form-group">
+
+                    <label for="start_time">
+                        Start Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="start_time"
+                        name="start_time"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- END -->
+
+                <div class="form-group">
+
+                    <label for="end_time">
+                        End Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="end_time"
+                        name="end_time"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="form-group">
+
+                    <label for="booking_status">
+                        Booking Status
+                    </label>
+
+                    <select
+                        id="booking_status"
+                        name="booking_status"
+                    >
+
+                        <option value="Confirmed">
+                            Confirmed
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Cancelled">
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PURPOSE -->
+
+                <div class="form-group full">
+
+                    <label for="purpose">
+                        Purpose
+                    </label>
+
+                    <textarea
+                        id="purpose"
+                        name="purpose"
+                        placeholder="Example: DBMS Class / Project Review / Department Seminar"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <div class="form-group full">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        + Create Booking
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- BOOKINGS TABLE -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Room Booking Records
+        </h2>
+
+
+        {% if bookings %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Room
+                        </th>
+
+                        <th>
+                            Building
+                        </th>
+
+                        <th>
+                            Faculty
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Purpose
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        {% if role == 'Admin' or role == 'Faculty' %}
+
+                            <th>
+                                Actions
+                            </th>
+
+                        {% endif %}
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for booking in bookings %}
+
+                    <tr>
+
+                        <!-- ID -->
+
+                        <td>
+                            {{ booking.booking_id }}
+                        </td>
+
+
+                        <!-- ROOM -->
+
+                        <td>
+
+                            <strong>
+
+                                {% if booking.room_number is defined %}
+
+                                    {{ booking.room_number }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </strong>
+
+                        </td>
+
+
+                        <!-- BUILDING -->
+
+                        <td>
+
+                            {% if booking.building is defined %}
+
+                                {{ booking.building }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- FACULTY -->
+
+                        <td>
+
+                            {% if booking.faculty_name is defined %}
+
+                                {{ booking.faculty_name }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- DATE -->
+
+                        <td>
+                            {{ booking.booking_date }}
+                        </td>
+
+
+                        <!-- TIME -->
+
+                        <td>
+
+                            {{ booking.start_time }}
+
+                            -
+
+                            {{ booking.end_time }}
+
+                        </td>
+
+
+                        <!-- PURPOSE -->
+
+                        <td>
+                            {{ booking.purpose or '-' }}
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if booking.booking_status == 'Confirmed' %}
+
+                                <span class="badge badge-green">
+                                    Confirmed
+                                </span>
+
+                            {% elif booking.booking_status == 'Pending' %}
+
+                                <span class="badge badge-yellow">
+                                    Pending
+                                </span>
+
+                            {% elif booking.booking_status == 'Cancelled' %}
+
+                                <span class="badge badge-red">
+                                    Cancelled
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    {{ booking.booking_status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        {% if role == 'Admin' or role == 'Faculty' %}
+
+                        <td>
+
+                            <div class="action-group">
+
+
+                                <!-- CONFIRM -->
+
+                                {% if booking.booking_status != 'Confirmed' %}
+
+                                <form
+                                    method="POST"
+                                    action="/room-bookings/update/{{ booking.booking_id }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="booking_status"
+                                        value="Confirmed"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary"
+                                    >
+                                        Confirm
+                                    </button>
+
+                                </form>
+
+                                {% endif %}
+
+
+                                <!-- CANCEL -->
+
+                                {% if booking.booking_status != 'Cancelled' %}
+
+                                <form
+                                    method="POST"
+                                    action="/room-bookings/update/{{ booking.booking_id }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="booking_status"
+                                        value="Cancelled"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-warning"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </form>
+
+                                {% endif %}
+
+
+                                <!-- DELETE -->
+
+                                {% if role == 'Admin' %}
+
+                                <form
+                                    method="POST"
+                                    action="/room-bookings/delete/{{ booking.booking_id }}"
+                                    onsubmit="return confirm(
+                                        'Delete this room booking?'
+                                    );"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </td>
+
+                        {% endif %}
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No Room Bookings
+                </h3>
+
+                <br>
+
+                <p>
+                    No room booking records are currently
+                    available.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- CLASSROOM INFORMATION -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Classroom & Resource Information
+        </h2>
+
+        {% if classrooms %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Room
+                        </th>
+
+                        <th>
+                            Building
+                        </th>
+
+                        <th>
+                            Capacity
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Availability
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for classroom in classrooms %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ classroom.room_number }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ classroom.building or '-' }}
+                        </td>
+
+                        <td>
+                            {{ classroom.capacity }}
+                        </td>
+
+                        <td>
+                            {{ classroom.room_type or '-' }}
+                        </td>
+
+                        <td>
+
+                            {% if classroom.availability_status == 'Available' %}
+
+                                <span class="badge badge-green">
+                                    Available
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-red">
+                                    {{ classroom.availability_status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                No classroom information available.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- DBMS INFORMATION -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            DBMS Features Used
+        </h2>
+
+        <p>
+            The Room Booking module demonstrates
+            database-based resource management.
+        </p>
+
+        <br>
+
+        <ul style="padding-left: 22px; line-height: 1.9;">
+
+            <li>
+                <strong>Foreign Keys</strong> connect
+                bookings with classrooms and faculty.
+            </li>
+
+            <li>
+                <strong>Transactions</strong> can be used
+                to safely create or cancel bookings.
+            </li>
+
+            <li>
+                <strong>Constraints</strong> maintain
+                valid classroom and faculty references.
+            </li>
+
+            <li>
+                <strong>View:</strong>
+                <em>room_booking_details</em> combines
+                booking, classroom and faculty information.
+            </li>
+
+            <li>
+                Room availability can be managed through
+                booking status and classroom status.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script>
+
+    /*
+     * Booking date should not be empty.
+     */
+
+    const bookingDate =
+        document.getElementById("booking_date");
+
+
+    if (bookingDate) {
+
+        bookingDate.addEventListener(
+            "change",
+            function () {
+
+                if (!this.value) {
+
+                    this.setCustomValidity(
+                        "Please select a booking date."
+                    );
+
+                } else {
+
+                    this.setCustomValidity("");
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+     * End time must be later than start time.
+     */
+
+    const startTime =
+        document.getElementById("start_time");
+
+    const endTime =
+        document.getElementById("end_time");
+
+
+    function validateBookingTime() {
+
+        if (
+            startTime &&
+            endTime &&
+            startTime.value &&
+            endTime.value
+        ) {
+
+            if (
+                endTime.value <=
+                startTime.value
+            ) {
+
+                endTime.setCustomValidity(
+                    "End time must be after start time."
+                );
+
+            } else {
+
+                endTime.setCustomValidity("");
+
+            }
+
+        }
+
+    }
+
+
+    if (startTime) {
+
+        startTime.addEventListener(
+            "change",
+            validateBookingTime
+        );
+
+    }
+
+
+    if (endTime) {
+
+        endTime.addEventListener(
+            "change",
+            validateBookingTime
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

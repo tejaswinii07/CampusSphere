@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Complaints | CampusSphere</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 16px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background: #2563eb;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            color: #111827;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+            color: #6b7280;
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            background: #374151;
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #1f2937;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 24px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            color: #111827;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            padding: 14px 16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            color: #1e3a8a;
+        }
+
+        .success {
+            background: #ecfdf5;
+
+            border-left: 5px solid #10b981;
+
+            color: #065f46;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        .error {
+            background: #fef2f2;
+
+            border-left: 5px solid #ef4444;
+
+            color: #991b1b;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-title {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 27px;
+
+            font-weight: bold;
+
+            color: #111827;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-family: inherit;
+
+            outline: none;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.12);
+        }
+
+        .btn {
+            border: none;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-warning {
+            background: #d97706;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #b45309;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1250px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            text-align: left;
+
+            vertical-align: top;
+        }
+
+        th {
+            background: #111827;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f9fafb;
+        }
+
+        /* ================= BADGES ================= */
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .badge-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-gray {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .badge-high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-low {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .action-group {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            min-width: 180px;
+        }
+
+        .action-form {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+        .action-form select,
+        .action-form input {
+            width: 100%;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 35px;
+
+            color: #6b7280;
+        }
+
+        /* ================= DESCRIPTION ================= */
+
+        .description {
+            max-width: 300px;
+
+            line-height: 1.5;
+        }
+
+        .resolution {
+            max-width: 280px;
+
+            line-height: 1.5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+            }
+
+            .navbar {
+                padding: 15px 18px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        CampusSphere
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            Welcome, {{ session.get('username', 'User') }}
+        </span>
+
+        <span class="role-badge">
+            {{ role }}
+        </span>
+
+        <a
+            href="/"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="/logout"
+            class="nav-link"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
+
+<div class="container">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Complaint Management
+            </h1>
+
+            <p>
+                Submit, monitor and resolve campus complaints.
+            </p>
+
+        </div>
+
+        <a
+            href="/"
+            class="back-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ROLE INFORMATION -->
+    <!-- ================================================= -->
+
+    {% if role == 'Student' %}
+
+        <div class="info-box">
+
+            <strong>Student View:</strong>
+
+            Submit complaints related to academics,
+            infrastructure, IT support, hostel,
+            transport and other campus services.
+
+            Your complaints are automatically linked
+            to your student account.
+
+        </div>
+
+    {% elif role == 'Faculty' %}
+
+        <div class="info-box">
+
+            <strong>Faculty View:</strong>
+
+            Monitor student complaints and update
+            their status, assignment and resolution.
+
+        </div>
+
+    {% elif role == 'Admin' %}
+
+        <div class="info-box">
+
+            <strong>Admin View:</strong>
+
+            Manage all complaints, assign complaints,
+            update resolutions and remove invalid
+            complaint records.
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- FLASH MESSAGES -->
+    <!-- ================================================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                {% if category == 'success' %}
+
+                    <div class="success">
+                        {{ message }}
+                    </div>
+
+                {% else %}
+
+                    <div class="error">
+                        {{ message }}
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================= -->
+    <!-- SUMMARY -->
+    <!-- ================================================= -->
+
+    <div class="summary-grid">
+
+
+        <!-- TOTAL -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Total Complaints
+            </div>
+
+            <div class="summary-value">
+
+                {{ complaints|length if complaints else 0 }}
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Pending
+            </div>
+
+            <div class="summary-value">
+
+                {% set pending =
+                    namespace(value=0) %}
+
+                {% for complaint in complaints %}
+
+                    {% if complaint.status == 'Pending' %}
+
+                        {% set pending.value =
+                            pending.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ pending.value }}
+
+            </div>
+
+        </div>
+
+
+        <!-- IN PROGRESS -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                In Progress
+            </div>
+
+            <div class="summary-value">
+
+                {% set progress =
+                    namespace(value=0) %}
+
+                {% for complaint in complaints %}
+
+                    {% if complaint.status == 'In Progress' %}
+
+                        {% set progress.value =
+                            progress.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ progress.value }}
+
+            </div>
+
+        </div>
+
+
+        <!-- RESOLVED -->
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Resolved
+            </div>
+
+            <div class="summary-value">
+
+                {% set resolved =
+                    namespace(value=0) %}
+
+                {% for complaint in complaints %}
+
+                    {% if complaint.status == 'Resolved' %}
+
+                        {% set resolved.value =
+                            resolved.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ resolved.value }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- STUDENT COMPLAINT FORM -->
+    <!-- ================================================= -->
+
+    {% if role == 'Student' %}
+
+    <div class="card">
+
+        <h2>
+            Submit a New Complaint
+        </h2>
+
+        <form
+            method="POST"
+            action="/complaints/add"
+        >
+
+            <div class="form-grid">
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label for="category_id">
+                        Complaint Category
+                    </label>
+
+                    <select
+                        id="category_id"
+                        name="category_id"
+                        required
+                    >
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        {% for category in categories %}
+
+                            <option
+                                value="{{ category.category_id }}"
+                            >
+                                {{ category.category_name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- PRIORITY -->
+
+                <div class="form-group">
+
+                    <label for="priority">
+                        Priority
+                    </label>
+
+                    <select
+                        id="priority"
+                        name="priority"
+                        required
+                    >
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                        <option
+                            value="Medium"
+                            selected
+                        >
+                            Medium
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TITLE -->
+
+                <div class="form-group full">
+
+                    <label for="complaint_title">
+                        Complaint Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="complaint_title"
+                        name="complaint_title"
+                        maxlength="150"
+                        placeholder="Enter complaint title"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group full">
+
+                    <label for="complaint_description">
+                        Complaint Description
+                    </label>
+
+                    <textarea
+                        id="complaint_description"
+                        name="complaint_description"
+                        maxlength="500"
+                        placeholder="Describe the problem in detail..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <div class="form-group">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Submit Complaint
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- COMPLAINT LIST -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+
+            {% if role == 'Student' %}
+                My Complaints
+            {% else %}
+                All Campus Complaints
+            {% endif %}
+
+        </h2>
+
+
+        {% if complaints %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+
+                        {% if role != 'Student' %}
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Register No.
+                        </th>
+
+                        {% endif %}
+
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Title
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+
+                        <th>
+                            Priority
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Assigned To
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Resolution
+                        </th>
+
+
+                        {% if role == 'Admin' or role == 'Faculty' %}
+
+                        <th>
+                            Actions
+                        </th>
+
+                        {% endif %}
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for complaint in complaints %}
+
+                    <tr>
+
+
+                        <!-- ID -->
+
+                        <td>
+                            #{{ complaint.complaint_id }}
+                        </td>
+
+
+                        <!-- STUDENT -->
+
+                        {% if role != 'Student' %}
+
+                        <td>
+
+                            {% if complaint.student_name is defined %}
+
+                                {{ complaint.student_name }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {% if complaint.register_number is defined %}
+
+                                {{ complaint.register_number }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+                        {% endif %}
+
+
+                        <!-- CATEGORY -->
+
+                        <td>
+
+                            {% if complaint.category_name is defined %}
+
+                                {{ complaint.category_name }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- TITLE -->
+
+                        <td>
+
+                            <strong>
+                                {{ complaint.complaint_title }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <td>
+
+                            <div class="description">
+
+                                {{ complaint.complaint_description or '-' }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- PRIORITY -->
+
+                        <td>
+
+                            {% if complaint.priority == 'High' %}
+
+                                <span class="badge badge-high">
+                                    High
+                                </span>
+
+                            {% elif complaint.priority == 'Medium' %}
+
+                                <span class="badge badge-medium">
+                                    Medium
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-low">
+                                    Low
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {{ complaint.complaint_date or '-' }}
+
+                        </td>
+
+
+                        <!-- ASSIGNED -->
+
+                        <td>
+
+                            {{ complaint.assigned_to or 'Not Assigned' }}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if complaint.status == 'Resolved' %}
+
+                                <span class="badge badge-green">
+                                    Resolved
+                                </span>
+
+                            {% elif complaint.status == 'In Progress' %}
+
+                                <span class="badge badge-blue">
+                                    In Progress
+                                </span>
+
+                            {% elif complaint.status == 'Rejected' %}
+
+                                <span class="badge badge-red">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-yellow">
+                                    Pending
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- RESOLUTION -->
+
+                        <td>
+
+                            <div class="resolution">
+
+                                {{ complaint.resolution or 'Not resolved yet' }}
+
+                                {% if complaint.resolved_date %}
+
+                                    <br><br>
+
+                                    <small>
+                                        Resolved:
+                                        {{ complaint.resolved_date }}
+                                    </small>
+
+                                {% endif %}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- ADMIN/FACULTY ACTIONS -->
+
+                        {% if role == 'Admin' or role == 'Faculty' %}
+
+                        <td>
+
+                            <div class="action-group">
+
+
+                                <!-- UPDATE FORM -->
+
+                                <form
+                                    method="POST"
+                                    action="/complaints/update/{{ complaint.complaint_id }}"
+                                    class="action-form"
+                                >
+
+                                    <label>
+                                        Status
+                                    </label>
+
+                                    <select
+                                        name="status"
+                                        required
+                                    >
+
+                                        <option
+                                            value="Pending"
+                                            {% if complaint.status == 'Pending' %}
+                                                selected
+                                            {% endif %}
+                                        >
+                                            Pending
+                                        </option>
+
+                                        <option
+                                            value="In Progress"
+                                            {% if complaint.status == 'In Progress' %}
+                                                selected
+                                            {% endif %}
+                                        >
+                                            In Progress
+                                        </option>
+
+                                        <option
+                                            value="Resolved"
+                                            {% if complaint.status == 'Resolved' %}
+                                                selected
+                                            {% endif %}
+                                        >
+                                            Resolved
+                                        </option>
+
+                                        <option
+                                            value="Rejected"
+                                            {% if complaint.status == 'Rejected' %}
+                                                selected
+                                            {% endif %}
+                                        >
+                                            Rejected
+                                        </option>
+
+                                    </select>
+
+
+                                    <label>
+                                        Assigned To
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="assigned_to"
+                                        value="{{ complaint.assigned_to or '' }}"
+                                        maxlength="100"
+                                        placeholder="Staff / Team"
+                                    >
+
+
+                                    <label>
+                                        Resolution
+                                    </label>
+
+                                    <textarea
+                                        name="resolution"
+                                        maxlength="500"
+                                        placeholder="Enter resolution"
+                                    >{{ complaint.resolution or '' }}</textarea>
+
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-success"
+                                    >
+                                        Update
+                                    </button>
+
+                                </form>
+
+
+                                <!-- DELETE -->
+
+                                {% if role == 'Admin' %}
+
+                                <form
+                                    method="POST"
+                                    action="/complaints/delete/{{ complaint.complaint_id }}"
+                                    onsubmit="return confirm(
+                                        'Delete this complaint permanently?'
+                                    );"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </td>
+
+                        {% endif %}
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No Complaints Found
+                </h3>
+
+                <br>
+
+                {% if role == 'Student' %}
+
+                    <p>
+                        You have not submitted any complaints yet.
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        There are currently no complaints
+                        in the system.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- DBMS EXPLANATION -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Complaint Management — DBMS Concepts
+        </h2>
+
+        <ul style="padding-left: 22px; line-height: 1.9;">
+
+            <li>
+                <strong>Primary Key:</strong>
+                Each complaint is uniquely identified
+                using complaint_id.
+            </li>
+
+            <li>
+                <strong>Foreign Keys:</strong>
+                student_id references the students table
+                and category_id references complaint_categories.
+            </li>
+
+            <li>
+                <strong>Relational Join:</strong>
+                Complaint information can be combined
+                with student and category information.
+            </li>
+
+            <li>
+                <strong>Role-Based Access:</strong>
+                Students manage their own complaints,
+                while Faculty and Admin can manage
+                complaint status and resolution.
+            </li>
+
+            <li>
+                <strong>Data Integrity:</strong>
+                Foreign-key constraints prevent complaints
+                from referencing non-existent students
+                or categories.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script>
+
+    const complaintForm =
+        document.querySelector(
+            'form[action="/complaints/add"]'
+        );
+
+
+    if (complaintForm) {
+
+        complaintForm.addEventListener(
+            "submit",
+            function (event) {
+
+                const title =
+                    document
+                        .getElementById("complaint_title")
+                        .value
+                        .trim();
+
+                const description =
+                    document
+                        .getElementById("complaint_description")
+                        .value
+                        .trim();
+
+
+                if (title.length < 5) {
+
+                    alert(
+                        "Complaint title must contain at least 5 characters."
+                    );
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+                if (description.length < 10) {
+
+                    alert(
+                        "Please provide a more detailed complaint description."
+                    );
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+            }
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

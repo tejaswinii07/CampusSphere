@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Attendance | CampusSphere</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #1e3a8a;
+            color: white;
+            padding: 18px 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .role-badge {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            color: white;
+            text-decoration: none;
+            background: #dc2626;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h2 {
+            font-size: 30px;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        /* =========================
+           FLASH MESSAGES
+        ========================= */
+
+        .flash-container {
+            margin-bottom: 20px;
+        }
+
+        .flash {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .flash.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .flash.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+
+            font-size: 14px;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .submit-container {
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            background: #2563eb;
+            color: white;
+
+            border: none;
+            border-radius: 7px;
+
+            padding: 12px 25px;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           TABLE CARD
+        ========================= */
+
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .table-header h3 {
+            color: #1e3a8a;
+            font-size: 20px;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        thead {
+            background: #1e3a8a;
+            color: white;
+        }
+
+        th {
+            padding: 13px 12px;
+            text-align: left;
+
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 12px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        /* =========================
+           COURSE NAME
+        ========================= */
+
+        .course-code {
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+
+        .course-name {
+            display: block;
+            margin-top: 4px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* =========================
+           ATTENDANCE
+        ========================= */
+
+        .percentage-wrapper {
+            min-width: 180px;
+        }
+
+        .percentage-text {
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .attendance-bar {
+            width: 100%;
+            height: 10px;
+
+            background: #e5e7eb;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .attendance-fill {
+            height: 100%;
+            border-radius: 10px;
+
+            transition:
+                width 0.3s ease;
+        }
+
+        .fill-good {
+            background: #16a34a;
+        }
+
+        .fill-warning {
+            background: #f59e0b;
+        }
+
+        .fill-danger {
+            background: #dc2626;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status-badge {
+            display: inline-block;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+            text-align: center;
+            padding: 45px 20px;
+            color: #6b7280;
+        }
+
+        .empty-state h3 {
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back-container {
+            margin-top: 25px;
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            background: #374151;
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: #1f2937;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .navbar {
+                padding: 15px 20px;
+
+                flex-direction: column;
+
+                gap: 12px;
+
+                align-items: flex-start;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .page-header h2 {
+                font-size: 25px;
+            }
+
+            .card,
+            .table-card {
+                padding: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION BAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <h1>
+            CampusSphere
+        </h1>
+
+        <div class="navbar-right">
+
+            <span class="role-badge">
+                Role: {{ role }}
+            </span>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="container">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <h2>
+                Attendance Management
+            </h2>
+
+            <p>
+                Monitor student attendance and manage attendance records.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             FLASH MESSAGES
+        ========================= -->
+
+        {% with messages =
+            get_flashed_messages(with_categories=true)
+        %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =========================
+             ADD ATTENDANCE FORM
+        ========================= -->
+
+        {% if role != "Student" %}
+
+            <div class="card">
+
+                <div class="card-title">
+                    Add Attendance
+                </div>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('add_attendance') }}"
+                >
+
+
+                    <div class="form-grid">
+
+
+                        <!-- STUDENT -->
+
+                        <div class="form-group">
+
+                            <label for="student_id">
+                                Student
+                            </label>
+
+                            <select
+                                id="student_id"
+                                name="student_id"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Student
+                                </option>
+
+                                {% for student in students %}
+
+                                    <option
+                                        value="{{ student.student_id }}"
+                                    >
+                                        {{ student.register_number }}
+                                        -
+                                        {{ student.student_name }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- COURSE -->
+
+                        <div class="form-group">
+
+                            <label for="course_id">
+                                Course
+                            </label>
+
+                            <select
+                                id="course_id"
+                                name="course_id"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Course
+                                </option>
+
+                                {% for course in courses %}
+
+                                    <option
+                                        value="{{ course.course_id }}"
+                                    >
+                                        {{ course.course_code }}
+                                        -
+                                        {{ course.course_name }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- TOTAL CLASSES -->
+
+                        <div class="form-group">
+
+                            <label for="total_classes">
+                                Total Classes
+                            </label>
+
+                            <input
+                                type="number"
+                                id="total_classes"
+                                name="total_classes"
+                                min="1"
+                                required
+                                placeholder="Example: 40"
+                            >
+
+                        </div>
+
+
+                        <!-- CLASSES ATTENDED -->
+
+                        <div class="form-group">
+
+                            <label for="classes_attended">
+                                Classes Attended
+                            </label>
+
+                            <input
+                                type="number"
+                                id="classes_attended"
+                                name="classes_attended"
+                                min="0"
+                                required
+                                placeholder="Example: 35"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="submit-container">
+
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                        >
+                            Add Attendance
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- =========================
+             ATTENDANCE RECORDS
+        ========================= -->
+
+        <div class="table-card">
+
+
+            <div class="table-header">
+
+                <h3>
+                    Attendance Records
+                </h3>
+
+            </div>
+
+
+            {% if attendance %}
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Register No.
+                            </th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                            <th>
+                                Course
+                            </th>
+
+                            <th>
+                                Total Classes
+                            </th>
+
+                            <th>
+                                Attended
+                            </th>
+
+                            <th>
+                                Attendance
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for row in attendance %}
+
+
+                            <tr>
+
+
+                                <!-- REGISTER NUMBER -->
+
+                                <td>
+                                    {{ row.register_number }}
+                                </td>
+
+
+                                <!-- STUDENT NAME -->
+
+                                <td>
+                                    {{ row.student_name }}
+                                </td>
+
+
+                                <!-- COURSE -->
+
+                                <td>
+
+                                    <span class="course-code">
+                                        {{ row.course_code }}
+                                    </span>
+
+                                    <span class="course-name">
+                                        {{ row.course_name }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- TOTAL CLASSES -->
+
+                                <td>
+                                    {{ row.total_classes }}
+                                </td>
+
+
+                                <!-- CLASSES ATTENDED -->
+
+                                <td>
+                                    {{ row.classes_attended }}
+                                </td>
+
+
+                                <!-- ATTENDANCE PERCENTAGE -->
+
+                                <td>
+
+
+                                    <div
+                                        class="percentage-wrapper"
+                                    >
+
+
+                                        {% if row.attendance_percentage is not none %}
+
+
+                                            <div
+                                                class="percentage-text"
+                                            >
+
+                                                {{
+                                                    "%.2f"|format(
+                                                        row.attendance_percentage|float
+                                                    )
+                                                }}%
+
+                                            </div>
+
+
+                                            <div
+                                                class="attendance-bar"
+                                            >
+
+
+                                                {% if row.attendance_percentage|float >= 75 %}
+
+
+                                                    <div
+                                                        class="attendance-fill fill-good"
+                                                        data-percentage="{{ row.attendance_percentage|float }}"
+                                                    ></div>
+
+
+                                                {% elif row.attendance_percentage|float >= 65 %}
+
+
+                                                    <div
+                                                        class="attendance-fill fill-warning"
+                                                        data-percentage="{{ row.attendance_percentage|float }}"
+                                                    ></div>
+
+
+                                                {% else %}
+
+
+                                                    <div
+                                                        class="attendance-fill fill-danger"
+                                                        data-percentage="{{ row.attendance_percentage|float }}"
+                                                    ></div>
+
+
+                                                {% endif %}
+
+
+                                            </div>
+
+
+                                        {% else %}
+
+
+                                            <div
+                                                class="percentage-text"
+                                            >
+                                                0.00%
+                                            </div>
+
+
+                                            <div
+                                                class="attendance-bar"
+                                            >
+
+                                                <div
+                                                    class="attendance-fill fill-danger"
+                                                    data-percentage="0"
+                                                ></div>
+
+                                            </div>
+
+
+                                        {% endif %}
+
+
+                                    </div>
+
+
+                                </td>
+
+
+                                <!-- STATUS -->
+
+                                <td>
+
+
+                                    {% if row.attendance_percentage is not none %}
+
+
+                                        {% if row.attendance_percentage|float >= 75 %}
+
+
+                                            <span
+                                                class="status-badge status-good"
+                                            >
+                                                Good
+                                            </span>
+
+
+                                        {% elif row.attendance_percentage|float >= 65 %}
+
+
+                                            <span
+                                                class="status-badge status-warning"
+                                            >
+                                                Warning
+                                            </span>
+
+
+                                        {% else %}
+
+
+                                            <span
+                                                class="status-badge status-danger"
+                                            >
+                                                Low Attendance
+                                            </span>
+
+
+                                        {% endif %}
+
+
+                                    {% else %}
+
+
+                                        <span
+                                            class="status-badge status-danger"
+                                        >
+                                            Not Available
+                                        </span>
+
+
+                                    {% endif %}
+
+
+                                </td>
+
+
+                            </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            {% else %}
+
+
+                <div class="empty-state">
+
+                    <h3>
+                        No Attendance Records
+                    </h3>
+
+                    <p>
+                        There are currently no attendance records available.
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- =========================
+             BACK TO DASHBOARD
+        ========================= -->
+
+        <div class="back-container">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="back-btn"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =========================
+         ATTENDANCE BAR JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const bars =
+                    document.querySelectorAll(
+                        ".attendance-fill[data-percentage]"
+                    );
+
+
+                bars.forEach(
+                    function (bar) {
+
+                        let percentage =
+                            parseFloat(
+                                bar.getAttribute(
+                                    "data-percentage"
+                                )
+                            );
+
+
+                        if (isNaN(percentage)) {
+                            percentage = 0;
+                        }
+
+
+                        if (percentage < 0) {
+                            percentage = 0;
+                        }
+
+
+                        if (percentage > 100) {
+                            percentage = 100;
+                        }
+
+
+                        bar.style.width =
+                            percentage + "%";
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Placements | CampusSphere</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+
+            padding: 16px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .role-badge {
+            background: #2563eb;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1350px;
+            margin: 30px auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            color: #111827;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+            color: #6b7280;
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            background: #374151;
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #1f2937;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 24px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 18px;
+            color: #111827;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+            background: #eff6ff;
+
+            border-left: 5px solid #2563eb;
+
+            padding: 14px 16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            color: #1e3a8a;
+        }
+
+        .success {
+            background: #ecfdf5;
+
+            border-left: 5px solid #10b981;
+
+            color: #065f46;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        .error {
+            background: #fef2f2;
+
+            border-left: 5px solid #ef4444;
+
+            color: #991b1b;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-title {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 27px;
+
+            font-weight: bold;
+
+            color: #111827;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1100px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            text-align: left;
+
+            vertical-align: middle;
+        }
+
+        th {
+            background: #111827;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f9fafb;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+        }
+
+        input,
+        select {
+            padding: 11px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(37, 99, 235, 0.12);
+        }
+
+        .btn {
+            border: none;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-warning {
+            background: #d97706;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #b45309;
+        }
+
+        /* ================= BADGES ================= */
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .badge-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-gray {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 35px;
+
+            color: #6b7280;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .action-group {
+            display: flex;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+        }
+
+        /* ================= DRIVE CARDS ================= */
+
+        .drive-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .drive-card {
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            background: #ffffff;
+        }
+
+        .drive-company {
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: #111827;
+
+            margin-bottom: 7px;
+        }
+
+        .drive-role {
+            color: #2563eb;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .drive-detail {
+            margin-bottom: 8px;
+
+            font-size: 14px;
+        }
+
+        .drive-detail strong {
+            color: #374151;
+        }
+
+        .drive-actions {
+            margin-top: 18px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1050px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .drive-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+            }
+
+            .navbar {
+                padding: 15px 18px;
+            }
+
+            .summary-grid,
+            .drive-grid,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        CampusSphere
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            Welcome, {{ session.get('username', 'User') }}
+        </span>
+
+        <span class="role-badge">
+            {{ role }}
+        </span>
+
+        <a
+            href="/"
+            class="nav-link"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="/logout"
+            class="nav-link"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
+
+<div class="container">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Placement Management
+            </h1>
+
+            <p>
+                Explore placement drives and manage
+                student applications.
+            </p>
+
+        </div>
+
+        <a
+            href="/"
+            class="back-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ROLE INFORMATION -->
+    <!-- ================================================= -->
+
+    {% if role == 'Student' %}
+
+        <div class="info-box">
+
+            <strong>Student View:</strong>
+
+            Browse available placement drives and
+            apply for eligible opportunities.
+
+            <br><br>
+
+            <strong>Note:</strong>
+            The current database does not contain a CGPA
+            column in the students table, so CGPA eligibility
+            is displayed as a drive requirement but is not
+            automatically validated.
+
+        </div>
+
+    {% elif role == 'Faculty' %}
+
+        <div class="info-box">
+
+            <strong>Faculty View:</strong>
+
+            Monitor placement drives and student
+            applications.
+
+        </div>
+
+    {% elif role == 'Admin' %}
+
+        <div class="info-box">
+
+            <strong>Admin View:</strong>
+
+            Manage placement information and monitor
+            student applications.
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================================================= -->
+    <!-- FLASH MESSAGES -->
+    <!-- ================================================= -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                {% if category == 'success' %}
+
+                    <div class="success">
+                        {{ message }}
+                    </div>
+
+                {% else %}
+
+                    <div class="error">
+                        {{ message }}
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================= -->
+    <!-- SUMMARY -->
+    <!-- ================================================= -->
+
+    <div class="summary-grid">
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Placement Drives
+            </div>
+
+            <div class="summary-value">
+
+                {% if drives %}
+                    {{ drives|length }}
+                {% else %}
+                    0
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                My Applications
+            </div>
+
+            <div class="summary-value">
+
+                {% if applications %}
+                    {{ applications|length }}
+                {% else %}
+                    0
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Selected
+            </div>
+
+            <div class="summary-value">
+
+                {% set selected =
+                    namespace(value=0) %}
+
+                {% for application in applications %}
+
+                    {% if application.selection_status == 'Selected' %}
+
+                        {% set selected.value =
+                            selected.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ selected.value }}
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Pending
+            </div>
+
+            <div class="summary-value">
+
+                {% set pending =
+                    namespace(value=0) %}
+
+                {% for application in applications %}
+
+                    {% if application.selection_status == 'Pending' %}
+
+                        {% set pending.value =
+                            pending.value + 1 %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {{ pending.value }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- PLACEMENT DRIVES -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Available Placement Drives
+        </h2>
+
+
+        {% if drives %}
+
+        <div class="drive-grid">
+
+            {% for drive in drives %}
+
+            <div class="drive-card">
+
+
+                <!-- COMPANY -->
+
+                <div class="drive-company">
+
+                    {% if drive.company_name is defined %}
+
+                        {{ drive.company_name }}
+
+                    {% else %}
+
+                        Company
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div class="drive-role">
+
+                    {{ drive.job_role }}
+
+                </div>
+
+
+                <!-- PACKAGE -->
+
+                <div class="drive-detail">
+
+                    <strong>
+                        Package:
+                    </strong>
+
+                    {% if drive.package_lpa %}
+
+                        ₹{{ drive.package_lpa }} LPA
+
+                    {% else %}
+
+                        Not specified
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CGPA -->
+
+                <div class="drive-detail">
+
+                    <strong>
+                        Minimum CGPA:
+                    </strong>
+
+                    {% if drive.minimum_cgpa %}
+
+                        {{ drive.minimum_cgpa }}
+
+                    {% else %}
+
+                        Not specified
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- ATTENDANCE -->
+
+                <div class="drive-detail">
+
+                    <strong>
+                        Minimum Attendance:
+                    </strong>
+
+                    {% if drive.minimum_attendance %}
+
+                        {{ drive.minimum_attendance }}%
+
+                    {% else %}
+
+                        Not specified
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                {% if drive.location is defined %}
+
+                <div class="drive-detail">
+
+                    <strong>
+                        Location:
+                    </strong>
+
+                    {{ drive.location or 'Not specified' }}
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- DATE -->
+
+                <div class="drive-detail">
+
+                    <strong>
+                        Drive Date:
+                    </strong>
+
+                    {{ drive.drive_date or 'Not announced' }}
+
+                </div>
+
+
+                <!-- DEADLINE -->
+
+                <div class="drive-detail">
+
+                    <strong>
+                        Application Deadline:
+                    </strong>
+
+                    {{ drive.application_deadline or 'Not specified' }}
+
+                </div>
+
+
+                <!-- ACTION -->
+
+                {% if role == 'Student' %}
+
+                <div class="drive-actions">
+
+                    {% set already_applied = false %}
+
+                    {% for application in applications %}
+
+                        {% if application.drive_id == drive.drive_id %}
+
+                            {% set already_applied = true %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    {% if already_applied %}
+
+                        <span class="badge badge-green">
+                            Already Applied
+                        </span>
+
+                    {% else %}
+
+                        <form
+                            method="POST"
+                            action="/placements/apply"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="drive_id"
+                                value="{{ drive.drive_id }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                Apply Now
+                            </button>
+
+                        </form>
+
+                    {% endif %}
+
+                </div>
+
+                {% endif %}
+
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No Placement Drives
+                </h3>
+
+                <br>
+
+                <p>
+                    No placement drives are currently
+                    available.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- APPLICATIONS -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+
+            {% if role == 'Student' %}
+                My Placement Applications
+            {% else %}
+                Student Placement Applications
+            {% endif %}
+
+        </h2>
+
+
+        {% if applications %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        {% if role != 'Student' %}
+
+                            <th>
+                                Register No.
+                            </th>
+
+                            <th>
+                                Student
+                            </th>
+
+                        {% endif %}
+
+                        <th>
+                            Company
+                        </th>
+
+                        <th>
+                            Job Role
+                        </th>
+
+                        <th>
+                            Application Date
+                        </th>
+
+                        <th>
+                            Application Status
+                        </th>
+
+                        <th>
+                            Selection Status
+                        </th>
+
+                        {% if role == 'Admin' or role == 'Faculty' %}
+
+                            <th>
+                                Actions
+                            </th>
+
+                        {% endif %}
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for application in applications %}
+
+                    <tr>
+
+
+                        <!-- STUDENT -->
+
+                        {% if role != 'Student' %}
+
+                            <td>
+
+                                {% if application.register_number is defined %}
+
+                                    {{ application.register_number }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                {% if application.student_name is defined %}
+
+                                    {{ application.student_name }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </td>
+
+                        {% endif %}
+
+
+                        <!-- COMPANY -->
+
+                        <td>
+
+                            <strong>
+
+                                {% if application.company_name is defined %}
+
+                                    {{ application.company_name }}
+
+                                {% else %}
+
+                                    -
+
+                                {% endif %}
+
+                            </strong>
+
+                        </td>
+
+
+                        <!-- JOB ROLE -->
+
+                        <td>
+
+                            {% if application.job_role is defined %}
+
+                                {{ application.job_role }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {{ application.application_date or '-' }}
+
+                        </td>
+
+
+                        <!-- APPLICATION STATUS -->
+
+                        <td>
+
+                            {% if application.application_status == 'Applied' %}
+
+                                <span class="badge badge-blue">
+                                    Applied
+                                </span>
+
+                            {% elif application.application_status == 'Rejected' %}
+
+                                <span class="badge badge-red">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-gray">
+                                    {{ application.application_status or '-' }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- SELECTION -->
+
+                        <td>
+
+                            {% if application.selection_status == 'Selected' %}
+
+                                <span class="badge badge-green">
+                                    Selected
+                                </span>
+
+                            {% elif application.selection_status == 'Rejected' %}
+
+                                <span class="badge badge-red">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-yellow">
+                                    Pending
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ADMIN/FACULTY ACTIONS -->
+
+                        {% if role == 'Admin' or role == 'Faculty' %}
+
+                        <td>
+
+                            <div class="action-group">
+
+
+                                <!-- SELECT -->
+
+                                {% if application.selection_status != 'Selected' %}
+
+                                <form
+                                    method="POST"
+                                    action="/placements/update/{{ application.application_id }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="selection_status"
+                                        value="Selected"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-success"
+                                    >
+                                        Select
+                                    </button>
+
+                                </form>
+
+                                {% endif %}
+
+
+                                <!-- REJECT -->
+
+                                {% if application.selection_status != 'Rejected' %}
+
+                                <form
+                                    method="POST"
+                                    action="/placements/update/{{ application.application_id }}"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="selection_status"
+                                        value="Rejected"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-warning"
+                                    >
+                                        Reject
+                                    </button>
+
+                                </form>
+
+                                {% endif %}
+
+
+                                <!-- DELETE -->
+
+                                <form
+                                    method="POST"
+                                    action="/placements/delete/{{ application.application_id }}"
+                                    onsubmit="return confirm(
+                                        'Delete this placement application?'
+                                    );"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+
+                            </div>
+
+                        </td>
+
+                        {% endif %}
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>
+                    No Applications
+                </h3>
+
+                <br>
+
+                {% if role == 'Student' %}
+
+                    <p>
+                        You have not applied for any placement
+                        drives yet.
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        No placement applications are
+                        currently available.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- PLACEMENT NOTES -->
+    <!-- ================================================= -->
+
+    <div class="card">
+
+        <h2>
+            Placement Module
+        </h2>
+
+        <p>
+            CampusSphere stores company information,
+            placement drives and student applications
+            using separate relational tables.
+        </p>
+
+        <br>
+
+        <ul style="padding-left: 22px; line-height: 1.9;">
+
+            <li>
+                <strong>companies</strong> stores
+                recruiting company information.
+            </li>
+
+            <li>
+                <strong>placement_drives</strong> stores
+                job role, package and eligibility details.
+            </li>
+
+            <li>
+                <strong>placement_applications</strong>
+                connects students with placement drives.
+            </li>
+
+            <li>
+                A unique constraint prevents the same
+                student from applying to the same drive
+                more than once.
+            </li>
+
+            <li>
+                Placement status can be monitored through
+                the student placement information.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+
+<script>
+
+    /*
+     * Confirmation before applying.
+     */
+
+    const applicationForms =
+        document.querySelectorAll(
+            'form[action="/placements/apply"]'
+        );
+
+
+    applicationForms.forEach(
+        function (form) {
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    const confirmed =
+                        confirm(
+                            "Are you sure you want to apply for this placement drive?"
+                        );
+
+                    if (!confirmed) {
+
+                        event.preventDefault();
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
